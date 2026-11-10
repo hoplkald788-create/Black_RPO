@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تمام - المكتبة الرقمية</title>
+    <meta name="description" content="موقع تمام التجريبي - استضافة الكتب الرقمية">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #1557b0;
+            --secondary: #34a853;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #202124;
+            --text-light: #5f6368;
+            --border: #e8eaed;
+            --shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* ===== Header ===== */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            background: white;
+            color: var(--primary);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .search-box {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 45px 10px 16px;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            font-family: 'Cairo', sans-serif;
+            background: rgba(255,255,255,0.95);
+            outline: none;
+        }
+
+        .search-box input:focus {
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+        }
+
+        .search-box::before {
+            content: "🔍";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(135deg, #e8f0fe, #f1f3f4);
+            padding: 50px 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== Main Container ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 24px;
+            padding-right: 15px;
+            border-right: 4px solid var(--primary);
+        }
+
+        /* ===== Books Grid ===== */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .book-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .book-cover {
+            height: 160px;
+            background: linear-gradient(135deg, var(--primary), #4285f4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .book-cover::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.1));
+        }
+
+        .book-info {
+            padding: 18px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-title {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .book-author {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+
+        .book-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .book-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .book-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-family: 'Cairo', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+            flex: 1;
+        }
+
+        .btn-outline:hover {
+            background: #e8f0fe;
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: #202124;
+            color: #bdc1c6;
+            padding: 40px 24px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #bdc1c6;
+            font-size: 14px;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 30px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid #3c4043;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* ===== Modal ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal h2 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .modal .subtitle {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .modal .book-detail {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal .book-detail-cover {
+            width: 80px;
+            height: 110px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), #4285f4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .modal .book-detail-info p {
+            font-size: 13px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+
+        .modal .book-detail-info strong {
+            color: var(--text);
+        }
+
+        .modal .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal .btn-group .btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .btn-close {
+            background: #f1f3f4;
+            color: var(--text);
+        }
+
+        .btn-close:hover {
+            background: #e8eaed;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .hero {
+                padding: 35px 20px;
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 16px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            .logo span {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+        }
+
+        /* ===== Animations ===== */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <span>ت</span>
+                تمام
+            </div>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن كتاب أو مؤلف...">
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>📚 مكتبة تمام الرقمية</h1>
+        <p>منصتك لاستضافة وقراءة الكتب الرقمية بسهولة. تصفح، ابحث، وحمّل كتبك المفضلة.</p>
+    </section>
+
+    <!-- Main -->
+    <main class="container">
+        <h2 class="section-title">الكتب المتاحة</h2>
+        <div class="books-grid" id="booksGrid">
+            <!-- يتم توليد البطاقات ديناميكياً -->
+        </div>
+
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <div class="icon">📖</div>
+            <h3>لا توجد كتب متاحة حالياً</h3>
+            <p>سيتم إضافة الكتب قريباً. تابعنا!</p>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="bookModal">
+        <div class="modal">
+            <div id="modalContent"></div>
+            <div class="btn-group">
+                <button class="btn btn-close" onclick="closeModal()">إغلاق</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-col">
+                <h4>تمام</h4>
+                <p>منصة رقمية لاستضافة الكتب والمراجع. نسعى لنشر المعرفة وتسهيل الوصول إليها.</p>
+            </div>
+            <div class="footer-col">
+                <h4>روابط سريعة</h4>
+                <a href="#" onclick="return false;">الرئيسية</a>
+                <a href="#" onclick="return false;">الكتب</a>
+                <a href="#" onclick="return false;">اتصل بنا</a>
+            </div>
+            <div class="footer-col">
+                <h4>الكتب</h4>
+                <a href="#" onclick="return false;">كتب دينية</a>
+                <a href="#" onclick="return false;">كتب علمية</a>
+                <a href="#" onclick="return false;">كتب أدبية</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2026 تمام - جميع الحقوق محفوظة | موقع تجريبي
+        </div>
+    </footer>
+
+    <script>
+        // ===== بيانات الكتب (يمكنك تعديلها) =====
+        // أضف كتبك هنا: العنوان، المؤلف، الصفحات، الحجم، رابط الملف
+        const books = [
+            {
+                id: 1,
+                title: "الكتاب الأول - تمام",
+                author: "المؤلف الأول",
+                pages: 120,
+                size: "2.5 MB",
+                category: "كتب دينية",
+                fileUrl: "books/book1.pdf",
+                coverColor: "linear-gradient(135deg, #1a73e8, #4285f4)"
+            },
+            {
+                id: 2,
+                title: "الكتاب الثاني - تمام",
+                author: "المؤلف الثاني",
+                pages: 250,
+                size: "5.1 MB",
+                category: "كتب علمية",
+                fileUrl: "books/book2.pdf",
+                coverColor: "linear-gradient(135deg, #34a853, #66bb6a)"
+            },
+            {
+                id: 3,
+                title: "الكتاب الثالث - تمام",
+                author: "المؤلف الثالث",
+                pages: 80,
+                size: "1.8 MB",
+                category: "كتب أدبية",
+                fileUrl: "books/book3.pdf",
+                coverColor: "linear-gradient(135deg, #ea4335, #f06292)"
+            },
+            {
+                id: 4,
+                title: "الكتاب الرابع - تمام",
+                author: "المؤلف الرابع",
+                pages: 340,
+                size: "7.2 MB",
+                category: "كتب تاريخية",
+                fileUrl: "books/book4.pdf",
+                coverColor: "linear-gradient(135deg, #fbbc04, #ffca28)"
+            },
+            {
+                id: 5,
+                title: "الكتاب الخامس - تمام",
+                author: "المؤلف الخامس",
+                pages: 160,
+                size: "3.3 MB",
+                category: "كتب دينية",
+                fileUrl: "books/book5.pdf",
+                coverColor: "linear-gradient(135deg, #9334e8, #ab47bc)"
+            },
+            {
+                id: 6,
+                title: "الكتاب السادس - تمام",
+                author: "المؤلف السادس",
+                pages: 200,
+                size: "4.0 MB",
+                category: "كتب علمية",
+                fileUrl: "books/book6.pdf",
+                coverColor: "linear-gradient(135deg, #00acc1, #26c6da)"
+            }
+        ];
+
+        // ===== توليد البطاقات =====
+        const grid = document.getElementById('booksGrid');
+        const emptyState = document.getElementById('emptyState');
+
+        function renderBooks(list) {
+            grid.innerHTML = '';
+            
+            if (list.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            emptyState.style.display = 'none';
+
+            list.forEach((book, i) => {
+                const card = document.createElement('div');
+                card.className = 'book-card fade-in';
+                card.style.animationDelay = (i * 0.05) + 's';
+                card.innerHTML = `
+                    <div class="book-cover" style="background: ${book.coverColor}">
+                        ${book.title.charAt(0)}
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">${book.title}</div>
+                        <div class="book-author">✍️ ${book.author}</div>
+                        <div class="book-meta">
+                            <span>📄 ${book.pages} صفحة</span>
+                            <span>💾 ${book.size}</span>
+                        </div>
+                        <div class="book-actions">
+                            <button class="btn btn-primary" onclick="openModal(${book.id})">📖 تفاصيل</button>
+                            <a class="btn btn-outline" href="${book.fileUrl}" download>⬇️ تحميل</a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ===== فتح النافذة المنبثقة =====
+        function openModal(id) {
+            const book = books.find(b => b.id === id);
+            if (!book) return;
+
+            document.getElementById('modalContent').innerHTML = `
+                <h2>${book.title}</h2>
+                <p class="subtitle">${book.category}</p>
+                <div class="book-detail">
+                    <div class="book-detail-cover" style="background: ${book.coverColor}">
+                        ${book.title.charAt(0)}
+                    </div>
+                    <div class="book-detail-info">
+                        <p><strong>المؤلف:</strong> ${book.author}</p>
+                        <p><strong>عدد الصفحات:</strong> ${book.pages}</p>
+                        <p><strong>حجم الملف:</strong> ${book.size}</p>
+                        <p><strong>التصنيف:</strong> ${book.category}</p>
+                    </div>
+                </div>
+                <a class="btn btn-primary" style="width:100%; padding:12px;" href="${book.fileUrl}" download>
+                    ⬇️ تحميل الكتاب
+                </a>
+            `;
+
+            document.getElementById('bookModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('bookModal').classList.remove('active');
+        }
+
+        // إغلاق عند النقر خارج النافذة
+        document.getElementById('bookModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ===== البحث =====
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.trim().toLowerCase();
+            const filtered = books.filter(book => 
+                book.title.toLowerCase().includes(query) || 
+                book.author.toLowerCase().includes(query) ||
+                book.category.toLowerCase().includes(query)
+            );
+            renderBooks(filtered);
+        });
+
+        // ===== التشغيل الأولي =====
+        renderBooks(books);
+    </script>
+</body>
+</html>
