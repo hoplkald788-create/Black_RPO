@@ -1,0 +1,128 @@
+here<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الأدمن - أوكس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: #0f0a1e; color: #fff; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .header { background: #1e1638; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border: 1px solid #6d28d9; }
+        .header h1 { color: #f59e0b; font-size: 22px; }
+        button { padding: 10px 20px; background: #6d28d9; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit; }
+        button:hover { background: #5b21b6; }
+        .card { background: #1e1638; padding: 20px; border-radius: 15px; border: 1px solid #6d28d9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; text-align: right; }
+        th, td { padding: 12px; border-bottom: 1px solid #333; }
+        th { color: #a89fc4; font-weight: normal; }
+        td { color: #10b981; font-weight: bold; }
+        #login-section { max-width: 400px; margin: 100px auto; text-align: center; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #444; background: #0f0a1e; color: #fff; font-family: inherit; }
+    </style>
+</head>
+<body>
+<div class="container">
+    
+    <!-- قسم تسجيل الدخول للأدمن -->
+    <div id="login-section">
+        <div class="card">
+            <h1 style="color:#f59e0b; margin-bottom:20px;">لوحة تحكم الأدمن</h1>
+            <p style="margin-bottom:15px; color:#a89fc4;">سجل دخولك بحسابك (الخاص بالأدمن) لعرض العملاء</p>
+            <input type="email" id="admin-email" placeholder="إيميل الأدمن">
+            <input type="password" id="admin-pass" placeholder="كلمة المرور">
+            <button onclick="loginAdmin()">تسجيل دخول الأدمن</button>
+        </div>
+    </div>
+
+    <!-- قسم عرض العملاء (مخفي في البداية) -->
+    <div id="dashboard-section" style="display:none;">
+        <div class="header">
+            <h1>👑 لوحة التحكم - إدارة العملاء</h1>
+            <button onclick="logoutAdmin()" style="background:#ef4444;">تسجيل خروج</button>
+        </div>
+        <div class="card">
+            <h2>قائمة العملاء المسجلين</h2>
+            <table id="users-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>معرف المستخدم (UID)</th>
+                        <th>تاريخ الانضمام</th>
+                    </tr>
+                </thead>
+                <tbody id="users-list">
+                    <!-- سيتم ملؤها من فايربيس -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, getAuth as authInstance } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    // استدعاء قاعدة البيانات لجلب المستخدمين
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCdV3qgXHHxz4e8mf1c-2TrZujXqY-LuQc",
+        authDomain: "black-9deb2.firebaseapp.com",
+        projectId: "black-9deb2",
+        storageBucket: "black-9deb2.firebasestorage.app",
+        messagingSenderId: "725901940218",
+        appId: "1:725901940218:web:bc10585da68be02dc14043"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    // ملاحظة: لاستخدام جلب المستخدمين بدون قاعدة بيانات، سنعتمد على التخزين المحلي 
+    // لأن Firebase Auth لا يسمح بجلب الإيميلات من المتصفح لأسباب أمنية.
+
+    window.loginAdmin = function() {
+        const email = document.getElementById('admin-email').value;
+        const pass = document.getElementById('admin-pass').value;
+        
+        signInWithEmailAndPassword(auth, email, pass)
+            .then(() => {
+                document.getElementById('login-section').style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                loadCustomers(); // عرض العملاء
+            })
+            .catch((error) => { alert('بيانات الدخول غير صحيحة!'); });
+    }
+
+    window.logoutAdmin = function() {
+        signOut(auth).then(() => { location.reload(); });
+    }
+
+    // دالة لعرض العملاء (تجريبية - تعتمد على ما تم تسجيله)
+    function loadCustomers() {
+        const tbody = document.getElementById('users-list');
+        // هنا نضع بيانات تجريبية لأن جلب الإيميلات مباشرة من Auth يتطلب سيرفر (Admin SDK)
+        tbody.innerHTML = `
+            <tr>
+                <td>1</td>
+                <td>test@test.com</td>
+                <td>UID...</td>
+                <td>اليوم</td>
+            </tr>
+        `;
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            loadCustomers();
+        } else {
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('dashboard-section').style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
