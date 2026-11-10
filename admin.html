@@ -1,0 +1,152 @@
+here<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم الأدمن - أوكس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body { background: #0f0a1e; color: #fff; padding: 20px; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; }
+        
+        /* تنسيق الهيدر */
+        .header { background: #1e1638; padding: 20px; border-radius: 15px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border: 1px solid #6d28d9; }
+        .header h1 { color: #f59e0b; font-size: 22px; }
+        
+        /* تنسيق الأزرار */
+        button { padding: 10px 20px; background: #6d28d9; color: #fff; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-family: inherit; transition: 0.3s; }
+        button:hover { background: #5b21b6; transform: translateY(-2px); }
+        .btn-logout { background: #ef4444; }
+        .btn-logout:hover { background: #dc2626; }
+
+        /* تنسيق البطاقات والجداول */
+        .card { background: #1e1638; padding: 20px; border-radius: 15px; border: 1px solid #6d28d9; margin-bottom: 20px; }
+        .card h2 { color: #a89fc4; margin-bottom: 15px; font-size: 18px; }
+        table { width: 100%; border-collapse: collapse; text-align: right; }
+        th, td { padding: 12px; border-bottom: 1px solid #333; }
+        th { color: #a89fc4; font-weight: normal; }
+        td { color: #10b981; font-weight: bold; font-size: 14px; }
+
+        /* تنسيق قسم الدخول */
+        #login-section { max-width: 400px; margin: 80px auto; text-align: center; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #444; background: #0f0a1e; color: #fff; font-family: inherit; font-size: 15px; }
+        input:focus { outline: none; border-color: #6d28d9; }
+        .error-text { color: #ef4444; font-size: 14px; margin-bottom: 10px; display: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    
+    <!-- 1. قسم تسجيل الدخول للأدمن -->
+    <div id="login-section">
+        <div class="card">
+            <h1 style="color:#f59e0b; margin-bottom:10px; font-size: 26px;">لوحة تحكم الأدمن</h1>
+            <p style="margin-bottom:20px; color:#a89fc4; font-size: 14px;">سجل دخولك بحسابك الخاص لإدارة المتجر</p>
+            
+            <div id="login-error" class="error-text"></div>
+            
+            <input type="email" id="admin-email" placeholder="البريد الإلكتروني">
+            <input type="password" id="admin-pass" placeholder="كلمة المرور">
+            <button onclick="loginAdmin()" style="width: 100%;">تسجيل دخول الأدمن</button>
+        </div>
+    </div>
+
+    <!-- 2. قسم لوحة التحكم (مخفي في البداية) -->
+    <div id="dashboard-section" style="display:none;">
+        <div class="header">
+            <h1>👑 لوحة التحكم</h1>
+            <button class="btn-logout" onclick="logoutAdmin()">تسجيل خروج</button>
+        </div>
+        
+        <div class="card">
+            <h2>إدارة المستخدمين (العملاء)</h2>
+            <p style="color:#a89fc4; font-size:13px; margin-bottom:15px;">
+                ملاحظة: لأسباب أمنية، لست مضطراً لعرض الإيميلات هنا. يمكنك رؤية كل الإيميلات المسجلة في لوحة تحكم Firebase تحت قسم Authentication.
+            </p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>حالة الحساب</th>
+                        <th>الصلاحيات</th>
+                    </tr>
+                </thead>
+                <tbody id="users-list">
+                    <!-- سيتم تعبئتها -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- ربط مكتبات Firebase -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCdV3qgXHHxz4e8mf1c-2TrZujXqY-LuQc",
+        authDomain: "black-9deb2.firebaseapp.com",
+        projectId: "black-9deb2",
+        storageBucket: "black-9deb2.firebasestorage.app",
+        messagingSenderId: "725901940218",
+        appId: "1:725901940218:web:bc10585da68be02dc14043"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // دالة تسجيل دخول الأدمن
+    window.loginAdmin = function() {
+        const email = document.getElementById('admin-email').value;
+        const pass = document.getElementById('admin-pass').value;
+        const errorDiv = document.getElementById('login-error');
+        
+        errorDiv.style.display = 'none';
+
+        signInWithEmailAndPassword(auth, email, pass)
+            .then(() => {
+                // سيتم التحويل تلقائياً بفضل onAuthStateChanged
+            })
+            .catch((error) => {
+                errorDiv.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+                errorDiv.style.display = 'block';
+            });
+    }
+
+    // دالة تسجيل الخروج
+    window.logoutAdmin = function() {
+        signOut(auth).then(() => { location.reload(); });
+    }
+
+    // مراقبة حالة الدخول
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // إذا سجل دخول بنجاح
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            
+            // تعبئة جدول وهمي (لتجميل الواجهة)
+            document.getElementById('users-list').innerHTML = `
+                <tr>
+                    <td>1</td>
+                    <td>مفعل ✅</td>
+                    <td>مستخدم عادي</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>مفعل ✅</td>
+                    <td>مستخدم عادي</td>
+                </tr>
+            `;
+        } else {
+            // إذا لم يسجل دخول
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('dashboard-section').style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
