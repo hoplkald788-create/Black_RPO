@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>متجر تمام | عروض شحن OUX</title>
+<title>أوكس | متجر عروض شحن OUX</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
@@ -35,7 +35,6 @@
     position: relative;
   }
 
-  /* خلفية متحركة */
   body::before {
     content: '';
     position: fixed;
@@ -48,7 +47,6 @@
     pointer-events: none;
   }
 
-  /* ===== شريط علوي ===== */
   .top-bar {
     background: linear-gradient(90deg, var(--primary-dark), var(--primary), var(--primary-dark));
     padding: 0.6rem 1rem;
@@ -75,7 +73,6 @@
     50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
   }
 
-  /* ===== Header ===== */
   header {
     position: sticky;
     top: 0;
@@ -118,6 +115,7 @@
     font-size: 1.5rem;
     box-shadow: 0 4px 20px rgba(139, 92, 246, 0.5);
     animation: glow 3s infinite alternate;
+    font-weight: 900;
   }
 
   @keyframes glow {
@@ -177,7 +175,6 @@
     box-shadow: 0 8px 25px rgba(245, 158, 11, 0.6);
   }
 
-  /* ===== Hero ===== */
   .hero {
     max-width: 1300px;
     margin: 0 auto;
@@ -244,7 +241,6 @@
     gap: 0.5rem;
   }
 
-  /* ===== Features ===== */
   .features {
     max-width: 1300px;
     margin: 0 auto;
@@ -283,7 +279,6 @@
   .feature-card h4 { font-size: 1rem; margin-bottom: 0.3rem; }
   .feature-card p { font-size: 0.85rem; color: var(--text-muted); }
 
-  /* ===== Section ===== */
   section.block {
     max-width: 1300px;
     margin: 0 auto;
@@ -316,7 +311,6 @@
 
   .section-head p { color: var(--text-muted); font-size: 1.05rem; }
 
-  /* ===== Offers Grid ===== */
   .offers-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -486,7 +480,6 @@
     background: linear-gradient(135deg, #d97706, var(--gold));
   }
 
-  /* ===== قسم فتح الحسابات ===== */
   .accounts-section {
     background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(245, 158, 11, 0.05));
     border: 1px solid var(--border);
@@ -565,7 +558,6 @@
 
   .trust-badge .icon { font-size: 1.4rem; }
 
-  /* ===== قسم التواصل ===== */
   .contact-section {
     max-width: 800px;
     margin: 3rem auto;
@@ -642,7 +634,6 @@
 
   .contact-note strong { color: var(--gold); }
 
-  /* ===== Footer ===== */
   footer {
     background: linear-gradient(180deg, transparent, rgba(0,0,0,0.4));
     border-top: 1px solid var(--border);
@@ -687,7 +678,6 @@
     color: var(--text-muted);
   }
 
-  /* ===== نافذة منبثقة ===== */
   .modal-overlay {
     display: none;
     position: fixed;
@@ -795,7 +785,6 @@
     box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
   }
 
-  /* ===== Responsive ===== */
   @media (max-width: 900px) {
     .nav-links { display: none; }
     .hero h1 { font-size: 2.4rem; }
@@ -822,7 +811,6 @@
     .btn-primary.btn-nav { display: none; }
   }
 
-  /* تمرير مخصص */
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: var(--bg-2); }
   ::-webkit-scrollbar-thumb {
@@ -836,7 +824,7 @@
 <!-- شريط علوي -->
 <div class="top-bar">
   <span class="pulse"></span>
-  <span>🌟 متوفر الشحن الآن - ضمان 100% 🌟</span>
+  <span>🌟 متوفر الشحن الآن - أوكس ضمان 100% 🌟</span>
   <span class="pulse"></span>
 </div>
 
@@ -844,8 +832,8 @@
 <header>
   <nav class="nav">
     <div class="logo" onclick="scrollTo({top:0, behavior:'smooth'})">
-      <div class="logo-mark">ت</div>
-      تمام
+      <div class="logo-mark">أ</div>
+      أوكس
     </div>
     <ul class="nav-links">
       <li><a href="#offers">العروض</a></li>
@@ -863,10 +851,10 @@
 <section class="hero">
   <div class="hero-badge">
     <span class="pulse"></span>
-    متجر تمام الرسمي - نسخة OUX+
+    متجر أوكس الرسمي - نسخة OUX+
   </div>
   <h1>💸 عروض الشحن الأفضل 💸</h1>
-  <p>احصل على باقات شحن OUX+ بأفضل الأسعار مع ضمان كامل وأمان تام. بحث، باركود، وسرعة في التنفيذ.</p>
+  <p>احصل على باقات شحن OUX+ بأفضل الأسعار مع ضمان كامل وأمان تام. بحث، باركود، وسرعة في التنفيذ من متجر أوكس.</p>
   
   <div class="hero-tags">
     <div class="tag">🔍 ميزة البحث</div>
@@ -916,12 +904,12 @@
 <!-- قسم فتح الحسابات -->
 <section class="accounts-section" id="accounts">
   <h2>❤️ متوفر فتح حسابات جديدة ❤️</h2>
-  <p>خدمة فتح الحسابات متوفرة الآن بكل احترافية وسرعة</p>
+  <p>خدمة فتح الحسابات متوفرة الآن في متجر أوكس بكل احترافية وسرعة</p>
   
   <div class="trust-badges">
     <div class="trust-badge">
       <span class="icon">❤️</span>
-      <span>متجرنا</span>
+      <span>متجر أوكس</span>
     </div>
     <div class="trust-badge">
       <span class="icon">🗝️</span>
@@ -947,7 +935,7 @@
   <div class="contact-card">
     <span class="crown">👑</span>
     <h2>للتواصل والطلب</h2>
-    <p style="color:var(--text-muted); margin-bottom:1.5rem;">تواصل معنا مباشرة عبر تيليجرام للطلب والاستفسار</p>
+    <p style="color:var(--text-muted); margin-bottom:1.5rem;">تواصل مع متجر أوكس مباشرة عبر تيليجرام للطلب والاستفسار</p>
     
     <a href="https://t.me/Black_RPO" target="_blank" class="contact-handle">
       <span>💬</span>
@@ -964,8 +952,8 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-col">
-      <h4>متجر تمام</h4>
-      <p>وجهتك الأولى لباقات شحن OUX+ بأسعار منافسة وخدمة احترافية. ضمان كامل وأمان تام.</p>
+      <h4>متجر أوكس</h4>
+      <p>وجهتك الأولى لباقات شحن OUX+ بأسعار منافسة وخدمة احترافية. ضمان كامل وأمان تام من أوكس.</p>
     </div>
     <div class="footer-col">
       <h4>روابط سريعة</h4>
@@ -987,7 +975,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    © 2026 متجر تمام - جميع الحقوق محفوظة | ضمان • أمان • ثقة
+    © 2026 متجر أوكس - جميع الحقوق محفوظة | ضمان • أمان • ثقة
   </div>
 </footer>
 
@@ -1096,7 +1084,7 @@
 
     document.getElementById('modalContent').innerHTML = `
       <h3>${offer.icon} باقة شحن ${offer.amount} ${offer.amountUnit}</h3>
-      <p class="modal-desc">${offer.desc}</p>
+      <p class="modal-desc">${offer.desc} - من متجر أوكس</p>
       
       <div class="modal-details">
         <div class="row">
@@ -1118,7 +1106,7 @@
       </div>
       
       <a href="https://t.me/Black_RPO" target="_blank" class="btn-contact">
-        💬 تواصل معنا للطلب
+        💬 تواصل مع أوكس للطلب
       </a>
     `;
 
@@ -1131,17 +1119,14 @@
     document.body.style.overflow = '';
   }
 
-  // إغلاق عند النقر خارج النافذة
   document.getElementById('modal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
 
-  // إغلاق بـ ESC
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeModal();
   });
 
-  // ===== التشغيل =====
   renderOffers();
 </script>
 </body>
