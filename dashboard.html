@@ -1,0 +1,105 @@
+here<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي - أوكس</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        body {
+            background: #0f0a1e;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .header {
+            background: #1e1638;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        .header h1 { color: #f59e0b; font-size: 20px; margin: 0; }
+        .header a {
+            color: #ef4444;
+            text-decoration: none;
+            font-weight: bold;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .card {
+            background: #1e1638;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            text-align: center;
+        }
+        .card p { font-size: 18px; margin-bottom: 10px; color: #a89fc4; }
+        .email-box {
+            background: #0f0a1e;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 18px;
+            color: #10b981;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>مرحباً بك في أوكس 👋</h1>
+        <a id="logout-btn">تسجيل خروج</a>
+    </div>
+
+    <div class="card">
+        <p>أنت الآن مسجل الدخول بنجاح، وحسابك محفوظ في سيرفر Firebase.</p>
+        <div class="email-box" id="user-email">جاري تحميل البريد...</div>
+        <p style="font-size: 14px;">هذه الصفحة محمية، ولا يمكن الدخول إليها إلا بعد تسجيل الدخول.</p>
+    </div>
+
+    <!-- ربط مكتبات Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdV3qgXHHxz4e8mf1c-2TrZujXqY-LuQc",
+            authDomain: "black-9deb2.firebaseapp.com",
+            projectId: "black-9deb2",
+            storageBucket: "black-9deb2.firebasestorage.app",
+            messagingSenderId: "725901940218",
+            appId: "1:725901940218:web:bc10585da68be02dc14043"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // التحقق من وجود مستخدم مسجل
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById('user-email').textContent = user.email;
+            } else {
+                // لو مش مسجل دخول، يرجعه لصفحة الدخول
+                window.location.href = 'login.html';
+            }
+        });
+
+        // تسجيل الخروج
+        document.getElementById('logout-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => {
+                window.location.href = 'login.html';
+            });
+        });
+    </script>
+</body>
+</html>
