@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+here<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -47,7 +47,6 @@
     pointer-events: none;
   }
 
-  /* ===== التثبيت للشريط العلوي والهيدر ===== */
   .sticky-wrapper {
     position: sticky;
     top: 0;
@@ -57,7 +56,7 @@
 
   .top-bar {
     background: linear-gradient(90deg, var(--primary-dark), var(--primary), var(--primary-dark));
-    padding: 0.5rem 1rem; /* تم تصغير الحجم قليلاً */
+    padding: 0.5rem 1rem;
     text-align: center;
     font-size: 0.85rem;
     font-weight: 600;
@@ -105,9 +104,9 @@
     font-weight: 900;
     cursor: pointer;
     color: #fff;
+    position: relative;
   }
 
-  /* تنسيق الشعار الجديد */
   .logo-img {
     width: 45px;
     height: 45px;
@@ -117,23 +116,25 @@
     box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
   }
 
-  /* تنسيق الإشعار الجديد */
+  /* تعديل الإشعار: نقله لليسار وتغيير الكلمة */
   .logo-badge {
     background: linear-gradient(135deg, #ef4444, #f97316);
     color: #fff;
     font-size: 0.65rem;
     font-weight: 800;
-    padding: 0.15rem 0.5rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 20px;
-    margin-right: 0.3rem;
     animation: pulse-badge 2s infinite;
-    position: relative;
-    top: -8px;
+    position: absolute;
+    left: -110px; /* نقله للجهة اليسرى */
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
 
   @keyframes pulse-badge {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    0%, 100% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-50%) scale(1.1); }
   }
 
   .nav-links { display: flex; gap: 1.5rem; list-style: none; }
@@ -148,14 +149,13 @@
 
   .nav-links a:hover { color: var(--gold); }
 
-  /* ===== تصغير حجم الأزرار ===== */
   .btn {
-    padding: 0.5rem 1.2rem; /* تم التصغير */
+    padding: 0.5rem 1.2rem;
     border-radius: 10px;
     border: none;
     font-family: inherit;
     font-weight: 700;
-    font-size: 0.85rem; /* تم التصغير */
+    font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
@@ -176,7 +176,6 @@
     box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
   }
 
-  /* ===== باقي التصميم ===== */
   .hero {
     max-width: 1300px;
     margin: 0 auto;
@@ -442,17 +441,16 @@
 
   .offer-price .value .currency { font-size: 0.9rem; }
 
-  /* تصغير زر الطلب */
   .offer-btn {
     width: 100%;
-    padding: 0.6rem; /* تم التصغير */
+    padding: 0.6rem;
     border-radius: 10px;
     border: none;
     background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: #fff;
     font-family: inherit;
     font-weight: 700;
-    font-size: 0.85rem; /* تم التصغير */
+    font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
@@ -790,6 +788,7 @@
     .accounts-section h2 { font-size: 1.8rem; }
     .contact-card h2 { font-size: 1.5rem; }
     .contact-handle { font-size: 1.1rem; padding: 1rem 1.8rem; }
+    .logo-badge { left: -90px; font-size: 0.6rem; } /* تعديل للموبايل */
   }
 
   @media (max-width: 600px) {
@@ -807,6 +806,7 @@
     .tag { font-size: 0.8rem; padding: 0.5rem 0.9rem; }
     .trust-badge { font-size: 0.85rem; padding: 0.8rem 1rem; }
     .btn-nav { display: none; }
+    .logo-badge { left: -80px; font-size: 0.55rem; }
   }
 
   ::-webkit-scrollbar { width: 10px; }
@@ -819,7 +819,6 @@
 </head>
 <body>
 
-<!-- تغليف الشريط العلوي والهيدر معاً ليكونان ثابتين -->
 <div class="sticky-wrapper">
   <div class="top-bar">
     <span class="pulse"></span>
@@ -830,11 +829,10 @@
   <header>
     <nav class="nav">
       <div class="logo" onclick="scrollTo({top:0, behavior:'smooth'})">
-        <!-- إضافة الشعار هنا -->
         <img src="https://i.ibb.co/8gd8xv4d/IMG-20261110-155146-560.jpg" alt="أوكس" class="logo-img">
         أوكس
-        <!-- إضافة الإشعار هنا -->
-        <span class="logo-badge">جديد 🔥</span>
+        <!-- تم تعديل النص هنا ونقله لليسار -->
+        <span class="logo-badge">متجر ضمان وأمان ✅</span>
       </div>
       <ul class="nav-links">
         <li><a href="#offers">العروض</a></li>
